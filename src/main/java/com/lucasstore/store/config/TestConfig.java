@@ -1,6 +1,6 @@
 package com.lucasstore.store.config;
 
-import com.lucasstore.store.enums.OrderStatus;
+import com.lucasstore.store.models.enums.OrderStatus;
 import com.lucasstore.store.models.Order;
 import com.lucasstore.store.models.User;
 import com.lucasstore.store.repositories.OrderRepository;

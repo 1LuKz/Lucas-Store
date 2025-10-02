@@ -1,7 +1,7 @@
 package com.lucasstore.store.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lucasstore.store.enums.OrderStatus;
+import com.lucasstore.store.models.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -16,6 +16,8 @@ public class Order {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
+
+    @Enumerated(EnumType.ORDINAL)
     private OrderStatus status;
 
     @ManyToOne
@@ -28,7 +30,7 @@ public class Order {
     public Order(Integer id, Instant moment, OrderStatus status, User client){
         this.id = id;
         this.moment = moment;
-        this.status = status;
+        setOrderStatus(status);
         this.client = client;
     }
 
@@ -48,11 +50,11 @@ public class Order {
         this.moment = moment;
     }
 
-    public OrderStatus getStatus() {
+    public OrderStatus getOrderStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setOrderStatus(OrderStatus status) {
         this.status = status;
     }
 
