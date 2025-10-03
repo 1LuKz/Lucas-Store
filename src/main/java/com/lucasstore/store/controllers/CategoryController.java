@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -18,12 +20,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity findAll(){
+    public ResponseEntity<List<Category>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable Integer id){
+    public ResponseEntity<Category> findById(@PathVariable Integer id){
         Category category = categoryService.findById(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(category);
     }
