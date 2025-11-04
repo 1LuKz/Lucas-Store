@@ -1,7 +1,6 @@
 package com.lucasstore.store.controllers;
 
 import com.lucasstore.store.models.Category;
-import com.lucasstore.store.repositories.CategoryRepository;
 import com.lucasstore.store.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
