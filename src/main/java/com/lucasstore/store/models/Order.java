@@ -5,6 +5,8 @@ import com.lucasstore.store.models.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -18,16 +20,20 @@ public class Order {
     private Instant moment;
 
     @Enumerated(EnumType.ORDINAL)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
 
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
+
     public Order(){
     }
 
     public Order(Integer id, Instant moment, OrderStatus status, User client){
+        super();
         this.id = id;
         this.moment = moment;
         setOrderStatus(status);
@@ -51,14 +57,20 @@ public class Order {
     }
 
     public OrderStatus getOrderStatus() {
-        return status;
+        return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus status) {
-        this.status = status;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus;
+        }
     }
 
     public User getClient() {
         return client;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
     }
 }

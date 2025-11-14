@@ -1,5 +1,6 @@
 package com.lucasstore.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucasstore.store.models.pk.OrderItemPk;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -10,7 +11,7 @@ import jakarta.persistence.Table;
 public class OrderItem {
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     private int quantity;
     private double price;
@@ -19,12 +20,14 @@ public class OrderItem {
     }
 
     public OrderItem(Order order, Product product, int quantity, double price){
+        super();
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -33,8 +36,8 @@ public class OrderItem {
         id.setOrder(order);
     }
 
-    public Order getProduct(){
-        return id.getOrder();
+    public Product getProduct(){
+        return id.getProduct();
     }
 
     public void setProduct(Product product){

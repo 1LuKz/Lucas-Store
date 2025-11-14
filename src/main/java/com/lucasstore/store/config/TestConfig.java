@@ -1,20 +1,15 @@
 package com.lucasstore.store.config;
 
-import com.lucasstore.store.models.Category;
-import com.lucasstore.store.models.Product;
+import com.lucasstore.store.models.*;
 import com.lucasstore.store.models.enums.OrderStatus;
-import com.lucasstore.store.models.Order;
-import com.lucasstore.store.models.User;
-import com.lucasstore.store.repositories.CategoryRepository;
-import com.lucasstore.store.repositories.OrderRepository;
-import com.lucasstore.store.repositories.ProductRepository;
-import com.lucasstore.store.repositories.UserRepository;
+import com.lucasstore.store.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Configuration
@@ -32,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception{
@@ -64,5 +62,12 @@ public class TestConfig implements CommandLineRunner {
         productFive.getCategories().add(categoryOne);
 
         productRepository.saveAll(Arrays.asList(productOne, productTwo, productThree, productFour, productFive));
+
+        OrderItem orderItemOne = new OrderItem(firstOrder, productOne, 2, productOne.getPrice());
+        OrderItem orderItemTwo = new OrderItem(firstOrder, productThree, 1, productThree.getPrice());
+        OrderItem orderItemThree = new OrderItem(secondOrder, productThree, 2, productThree.getPrice());
+        OrderItem orderItemFour = new OrderItem(thirdOrder, productFive, 2, productFive.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(orderItemOne, orderItemTwo, orderItemThree, orderItemFour));
     }
 }

@@ -1,7 +1,5 @@
 package com.lucasstore.store.models.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 public enum OrderStatus {
     WAITING_PAYMENT(1),
     PAID(2),
@@ -15,7 +13,6 @@ public enum OrderStatus {
         this.code = code;
     }
 
-    @JsonValue
     public int getCode(){
         return code;
     }
