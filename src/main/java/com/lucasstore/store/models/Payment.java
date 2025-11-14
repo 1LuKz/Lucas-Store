@@ -1,5 +1,6 @@
 package com.lucasstore.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -13,6 +14,7 @@ public class Payment {
     private Integer id;
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;
