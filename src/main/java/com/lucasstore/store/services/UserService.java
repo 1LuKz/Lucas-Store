@@ -4,6 +4,7 @@ import com.lucasstore.store.models.User;
 import com.lucasstore.store.repositories.UserRepository;
 import com.lucasstore.store.services.exceptions.DatabaseException;
 import com.lucasstore.store.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -44,9 +45,13 @@ public class UserService {
     }
 
     public User update(Integer id, User user){
-        User userUpdate = userRepository.getReferenceById(id);
-        updateData(userUpdate, user);
-        return userRepository.save(userUpdate);
+        try{
+            User userUpdate = userRepository.getReferenceById(id);
+            updateData(userUpdate, user);
+            return userRepository.save(userUpdate);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     public void updateData(User userUpdate, User user){
