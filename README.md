@@ -84,7 +84,7 @@ POST   /orders
 ### 1. Clone the repository
 
 ```
-git clone <your-repo-url>
+git clone https://github.com/your-user/repository-name.git
 cd Lucas-Store
 ```
 
